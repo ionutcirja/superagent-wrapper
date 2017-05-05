@@ -38,7 +38,7 @@ api.init(API_BASE_URL, defaultHeaders);
 
 Takes endpoint and headers as parameters.
 
-Headers value will be added to the default headers set into the initialization call.
+Headers sent to the server will extend the default headers set into the initialization call.
 
 Returns a promise.
 
@@ -50,6 +50,8 @@ get('/fetch-endpoint', { Authorization: `Token 123` })
 
 Takes endpoint and headers as parameters.
 
+Headers sent to the server will extend the default headers set into the initialization call.
+
 Returns a promise.
 
 ```js
@@ -60,6 +62,8 @@ post('/post-endpoint', { Authorization: `Token 123` })
 
 Takes endpoint and headers as parameters.
 
+Headers sent to the server will extend the default headers set into the initialization call.
+
 Returns a promise.
 
 ```js
@@ -69,6 +73,8 @@ put('/put-endpoint', { Authorization: `Token 123` })
 ### del
 
 Takes endpoint and headers as parameters.
+
+Headers sent to the server will extend the default headers set into the initialization call.
 
 Returns a promise.
 
