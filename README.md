@@ -2,7 +2,7 @@
 
 This is a simple wrapper over superagent library.
 
-Any pull request for optimisations and new additions is more than welcome.
+Any pull request for optimizations and new additions is more than welcome.
 
 # Installing superagent-wrapper
 
