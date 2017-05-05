@@ -44,6 +44,12 @@ Returns a promise.
 
 ```js
 get('/fetch-endpoint', { Authorization: `Token 123` })
+    .then((data) => {
+        // do something with data
+    })
+    .catch((error) => {
+        // check for error.data and error.status and use these values
+    });
 ```
 
 ### post
@@ -56,6 +62,12 @@ Returns a promise.
 
 ```js
 post('/post-endpoint', { Authorization: `Token 123` })
+    .then((data) => {
+        // do something with data
+    })
+    .catch((error) => {
+        // check for error.data and error.status and use these values
+    });
 ```
 
 ### put
@@ -68,6 +80,12 @@ Returns a promise.
 
 ```js
 put('/put-endpoint', { Authorization: `Token 123` })
+    .then((data) => {
+        // do something with data
+    })
+    .catch((error) => {
+        // check for error.data and error.status and use these values
+    });
 ```
 
 ### del
@@ -80,4 +98,10 @@ Returns a promise.
 
 ```js
 del('/delete-endpoint', { Authorization: `Token 123` })
+    .then((data) => {
+        // do something with data
+    })
+    .catch((error) => {
+        // check for error.data and error.status and use these values
+    });
 ```
