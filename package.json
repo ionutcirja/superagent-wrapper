@@ -5,8 +5,8 @@
   "url": "https://github.com/ionutcirja/superagent-wrapper",
   "license": "MIT",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/ionutcirja/superagent-wrapper"
+    "type": "git",
+    "url": "https://github.com/ionutcirja/superagent-wrapper"
   },
   "scripts": {
     "build": "babel -d lib/ src/ --ignore *.spec.js",
@@ -17,14 +17,18 @@
   "main": "lib/index.js",
   "nyc": {
     "exclude": [
-      "*.spec.js", "./node_modules"
+      "*.spec.js",
+      "./node_modules"
     ],
-    "require": ["babel-register"],
+    "require": [
+      "babel-register"
+    ],
     "sourceMap": false,
     "instrument": false
   },
   "pre-commit": [
-    "lint", "test"
+    "lint",
+    "test"
   ],
   "dependencies": {
     "babel-core": "~6.24.1",
@@ -33,7 +37,7 @@
     "babel-preset-es2015": "~6.24.1",
     "babel-polyfill": "~6.23.0",
     "babel-preset-stage-2": "~6.24.1",
-    "superagent": "~3.5.2"
+    "superagent": "~3.7.0"
   },
   "devDependencies": {
     "babel-cli": "~6.24.1",
