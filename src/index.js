@@ -38,7 +38,11 @@ const endCallback = (
     const resObj = response.text ? JSON.parse(response.text) : {};
 
     if (error) {
-      reject({ error: true, data: resObj, status: response.status });
+      reject({
+        error: true,
+        data: resObj,
+        status: response.status,
+      });
       return;
     }
 
@@ -76,7 +80,10 @@ const send = (
   })
 );
 
-const get = (endpoint: string, headers: Headers = {}): Promise<*> => (
+const get = (
+  endpoint: string,
+  headers: Headers = {},
+): Promise<*> => (
   new Promise((resolve, reject) => {
     request
       .get(`${apiBaseURL}${endpoint}`)
@@ -87,7 +94,10 @@ const get = (endpoint: string, headers: Headers = {}): Promise<*> => (
   })
 );
 
-const del = (endpoint: string, headers: Headers = {}): Promise<*> => (
+const del = (
+  endpoint: string,
+  headers: Headers = {},
+): Promise<*> => (
   new Promise((resolve, reject) => {
     request
       .del(`${apiBaseURL}${endpoint}`)
@@ -98,11 +108,19 @@ const del = (endpoint: string, headers: Headers = {}): Promise<*> => (
   })
 );
 
-const post = (endpoint: string, values: Values, headers: Headers = {}): Promise<*> => (
+const post = (
+  endpoint: string,
+  values: Values,
+  headers: Headers = {},
+): Promise<*> => (
   send(request.post, endpoint, values, headers)
 );
 
-const put = (endpoint: string, values: Values, headers: Headers = {}): Promise<*> => (
+const put = (
+  endpoint: string,
+  values: Values,
+  headers: Headers = {},
+): Promise<*> => (
   send(request.put, endpoint, values, headers)
 );
 
