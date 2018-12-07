@@ -1,76 +1,117 @@
+// @flow
 import request from 'superagent';
 
-let apiBaseURL = '';
-let defaultHeaders = {
-    Accept: 'application/json',
+type Headers = {
+  [key: string]: any,
 };
 
-const setHeaders = headers => Object.assign({}, defaultHeaders, headers);
+type Error = {
+  [key: string]: any,
+};
 
-const endCallback = (resolve, reject, error, response) => {
-    try {
-        const resObj = response.text ? JSON.parse(response.text) : {};
+type Values = {
+  [key: string]: any,
+};
 
-        if (error) {
-            reject({ error: true, data: resObj, status: response.status });
-            return;
-        }
+type Response = {
+  text?: string,
+  status: number,
+};
 
-        resolve(resObj);
-    } catch (unknownError) {
-        reject({
-            error: true,
-            data: { message: 'Unknown error' },
-            status: response ? response.status : 500,
-        });
+let apiBaseURL: string = '';
+let defaultHeaders: Headers = {
+  Accept: 'application/json',
+};
+
+const setHeaders = (headers: Headers) => ({
+  ...defaultHeaders,
+  ...headers,
+});
+
+const endCallback = (
+  resolve: Function,
+  reject: Function,
+  error: Error,
+  response: Response,
+) => {
+  try {
+    const resObj = response.text ? JSON.parse(response.text) : {};
+
+    if (error) {
+      reject({ error: true, data: resObj, status: response.status });
+      return;
     }
+
+    resolve(resObj);
+  } catch (unknownError) {
+    reject({
+      error: true,
+      data: { message: 'Unknown error' },
+      status: response ? response.status : 'unknown',
+    });
+  }
 };
 
-const init = (apiUrl, headers = {}) => {
-    apiBaseURL = apiUrl;
-    defaultHeaders = Object.assign({}, defaultHeaders, headers);
+const init = (apiUrl: string, headers: Headers = {}) => {
+  apiBaseURL = apiUrl;
+  defaultHeaders = {
+    ...defaultHeaders,
+    ...headers,
+  };
 };
 
-const send = (method, endpoint, values, headers = {}) =>
-    new Promise((resolve, reject) => {
-        method(`${apiBaseURL}${endpoint}`)
-            .set(setHeaders(headers))
-            .send(values)
-            .end((error, response) => {
-                endCallback(resolve, reject, error, response);
-            });
-    });
+const send = (
+  method: Function,
+  endpoint: string,
+  values: Values,
+  headers: Headers = {},
+): Promise<*> => (
+  new Promise((resolve, reject) => {
+    method(`${apiBaseURL}${endpoint}`)
+      .set(setHeaders(headers))
+      .send(values)
+      .end((error, response) => {
+        endCallback(resolve, reject, error, response);
+      });
+  })
+);
 
-const get = (endpoint, headers = {}) =>
-    new Promise((resolve, reject) => {
-        request
-            .get(`${apiBaseURL}${endpoint}`)
-            .set(setHeaders(headers))
-            .end((error, response) => {
-                endCallback(resolve, reject, error, response);
-            });
-    });
+const get = (endpoint: string, headers: Headers = {}): Promise<*> => (
+  new Promise((resolve, reject) => {
+    request
+      .get(`${apiBaseURL}${endpoint}`)
+      .set(setHeaders(headers))
+      .end((error, response) => {
+        endCallback(resolve, reject, error, response);
+      });
+  })
+);
 
-const del = (endpoint, headers = {}) =>
-    new Promise((resolve, reject) => {
-        request
-            .del(`${apiBaseURL}${endpoint}`)
-            .set(setHeaders(headers))
-            .end((error, response) => {
-                endCallback(resolve, reject, error, response);
-            });
-    });
 
-const post = (endpoint, values, headers = {}) =>
-    send(request.post, endpoint, values, headers);
+const del = (endpoint: string, headers: Headers = {}): Promise<*> => (
+  new Promise((resolve, reject) => {
+    request
+      .del(`${apiBaseURL}${endpoint}`)
+      .set(setHeaders(headers))
+      .end((error, response) => {
+        endCallback(resolve, reject, error, response);
+      });
+  })
+);
 
-const put = (endpoint, values, headers = {}) =>
-    send(request.put, endpoint, values, headers);
+
+const post = (endpoint: string, values: Values, headers: Headers = {}): Promise<*> => (
+  send(request.post, endpoint, values, headers)
+);
+
+const put = (endpoint: string, values: Values, headers: Headers = {}): Promise<*> => (
+  send(request.put, endpoint, values, headers)
+);
 
 export default {
-    init,
-    get,
-    post,
-    put,
-    del,
+  init,
+  get,
+  post,
+  put,
+  del,
 };
