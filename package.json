@@ -8,6 +8,7 @@
     "type": "git",
     "url": "https://github.com/ionutcirja/superagent-wrapper"
   },
+  "main": "lib/index.js",
   "keywords": [
     "superagent wrapper",
     "request",
@@ -23,7 +24,6 @@
     "test:watchAll": "jest --watchAll",
     "flow": "flow"
   },
-  "main": "lib/index.js",
   "jest": {
     "verbose": true,
     "collectCoverage": true,
