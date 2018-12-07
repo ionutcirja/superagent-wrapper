@@ -87,7 +87,6 @@ const get = (endpoint: string, headers: Headers = {}): Promise<*> => (
   })
 );
 
-
 const del = (endpoint: string, headers: Headers = {}): Promise<*> => (
   new Promise((resolve, reject) => {
     request
@@ -98,7 +97,6 @@ const del = (endpoint: string, headers: Headers = {}): Promise<*> => (
       });
   })
 );
-
 
 const post = (endpoint: string, values: Values, headers: Headers = {}): Promise<*> => (
   send(request.post, endpoint, values, headers)
