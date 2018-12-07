@@ -15,22 +15,35 @@
     "services"
   ],
   "scripts": {
-    "build": "babel -d lib/ src/ --ignore *.spec.js",
+    "build": "babel -d lib/ src/ --ignore **/*.spec.js",
+    "prepublish": "npm run lint && npm run flow && npm test && npm run build",
     "lint": "eslint src/**",
-    "test": "NODE_ENV=test ./node_modules/.bin/nyc ./node_modules/.bin/_mocha './{,!(node_modules)/**/}*.spec.js'",
-    "prepublish": "npm run lint && npm test && npm run build"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:watchAll": "jest --watchAll",
+    "flow": "flow"
   },
   "main": "lib/index.js",
-  "nyc": {
-    "exclude": [
-      "*.spec.js",
-      "./node_modules"
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true,
+    "testURL": "http://localhost/",
+    "collectCoverageFrom": [
+      "**/*.{js}",
+      "!**/lib/**",
+      "!**/node_modules/**",
+      "!**/config/**",
+      "!**/coverage/**"
     ],
-    "require": [
-      "babel-register"
+    "testMatch": [
+      "**/__tests__/?(*.)(spec|test).js"
     ],
-    "sourceMap": false,
-    "instrument": false
+    "transform": {
+      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
+    ]
   },
   "pre-commit": [
     "lint",
