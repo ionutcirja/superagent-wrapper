@@ -160,10 +160,10 @@ describe('Superagent wrapper', () => {
     });
 
     it('should reject a promise when call is not successful', () => {
-      const expectedError = { error: true, data: { message: 'error message' }, status: 401 };
+      const expectedError = { error: true, data: { message: 'Unknown error' }, status: 'unknown' };
       const set = jest.fn().mockReturnValue({
         end: (cb) => {
-          cb('error', { ok: false, status: 401, text: '{ "message": "error message" }' });
+          cb('error');
         },
       });
       request.del = jest.fn().mockReturnValue({
