@@ -15,7 +15,7 @@ type Values = {
 
 type Response = {
   text?: string,
-  status: number,
+  status?: number,
 };
 
 let apiBaseURL: string = '';
